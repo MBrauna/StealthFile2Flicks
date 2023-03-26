@@ -1,23 +1,14 @@
 #include "../includes/stealthFileModel.hpp"
 
-#include <iostream>
-#include <openssl/md5.h>
-#include <sstream>
-#include <string>
-#include <vector>
-
-sf2f::StealthFileModel::StealthFileModel():
-    path(nullptr),
-    base64(nullptr),
-    hash(nullptr),
-    isDirectory(true),
-    children(){};
+sf2f::StealthFileModel::StealthFileModel():path(NULL), base64(NULL), hash(NULL), isDirectory(true), children(NULL){
+    sf2f::StealthFileModel::generateHash();
+};
 
 sf2f::StealthFileModel::StealthFileModel(
-    std::string path = "",
+    std::string path = NULL,
     bool isDirectory = true,
-    std::string base64 = ""
-):path(path), base64(base64), hash(nullptr), children(){
+    std::string base64 = NULL
+):path(path), base64(base64), hash(""), children(){
     sf2f::StealthFileModel::generateHash();
 };
 
@@ -35,7 +26,6 @@ void sf2f::StealthFileModel::generateHash(){
         std::string tmpHash = "";
         char buf[3];
         for (int i = 0; i < MD5_DIGEST_LENGTH; i++) {
-            sprintf(buf, "%02x", md[i]);
             tmpHash += buf;
         }
         hash = tmpHash;
@@ -63,7 +53,7 @@ bool sf2f::StealthFileModel::getIsDirectory() {
 bool sf2f::StealthFileModel::withPath(std::string value) {
     try {
         path = value;
-        generateHash();
+        sf2f::StealthFileModel::generateHash();
         return true;
     } catch(const std::exception& e) {
         std::cerr << typeid(*this).name() << e.what() << std::endl;
@@ -74,7 +64,7 @@ bool sf2f::StealthFileModel::withPath(std::string value) {
 bool sf2f::StealthFileModel::withBase64(std::string value) {
     try {
         base64 = value;
-        generateHash();
+        sf2f::StealthFileModel::generateHash();
         return true;
     } catch(const std::exception& e) {
         std::cerr << typeid(*this).name() << e.what() << std::endl;
@@ -85,7 +75,7 @@ bool sf2f::StealthFileModel::withBase64(std::string value) {
 bool sf2f::StealthFileModel::withIsDirectory(bool value) {
     try {
         isDirectory = value;
-        generateHash();
+        sf2f::StealthFileModel::generateHash();
         return true;
     } catch(const std::exception& e) {
         std::cerr << typeid(*this).name() << e.what() << std::endl;
@@ -96,7 +86,7 @@ bool sf2f::StealthFileModel::withIsDirectory(bool value) {
 bool sf2f::StealthFileModel::addChild(sf2f::StealthFileModel* value) {
     try {
         children.push_back(value);
-        generateHash();
+        sf2f::StealthFileModel::generateHash();
         return true;
     } catch(const std::exception& e){
         std::cerr << typeid(*this).name() << e.what() << std::endl;
@@ -106,12 +96,12 @@ bool sf2f::StealthFileModel::addChild(sf2f::StealthFileModel* value) {
 
 bool sf2f::StealthFileModel::removeChild(std::string value) {
     try {
-        for(auto childId = children.begin(); childId != children.end(); childId++) {
-            if((*childId)->getPath() == value){
-                delete *childId;
-                children.erase(childId);
+        for(int childId = 0; childId < children.size(); childId++){
+            if(children.at(childId)->getPath() == value){
+                children.erase(children.begin() + childId);
             }
         }
+        sf2f::StealthFileModel::generateHash();
         return true;
     } catch(const std::exception& e){
         std::cerr << typeid(*this).name() << e.what() << std::endl;

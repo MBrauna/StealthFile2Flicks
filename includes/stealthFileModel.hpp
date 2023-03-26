@@ -1,8 +1,12 @@
 #ifndef STEALTHFILEMODEL_H
 #define STEALTHFILEMODEL_H
 
+#include <iostream>
+#include <openssl/md5.h>
+#include <sstream>
 #include <string>
 #include <vector>
+#include <typeinfo>
 
 namespace sf2f {
     class StealthFileModel {
@@ -15,7 +19,7 @@ namespace sf2f {
             bool isDirectory;
         private:
             StealthFileModel();
-            StealthFileModel(std::string path = "", bool isDirectory = true, std::string base64 = "");
+            StealthFileModel(std::string path = NULL, bool isDirectory = true, std::string base64 = NULL);
             ~StealthFileModel();
 
             void generateHash();
