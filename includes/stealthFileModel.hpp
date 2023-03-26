@@ -19,7 +19,7 @@ namespace sf2f {
             bool isDirectory;
         private:
             StealthFileModel();
-            StealthFileModel(std::string path = NULL, bool isDirectory = true, std::string base64 = NULL);
+            StealthFileModel(std::string path, bool isDirectory, std::string base64);
             ~StealthFileModel();
 
             void generateHash();

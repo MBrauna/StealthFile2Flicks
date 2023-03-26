@@ -2,15 +2,15 @@
 
 sf2f::StealthFileModel::StealthFileModel():path(NULL), base64(NULL), hash(NULL), isDirectory(true), children(NULL){
     sf2f::StealthFileModel::generateHash();
-};
+}
 
 sf2f::StealthFileModel::StealthFileModel(
-    std::string path = NULL,
+    std::string path = "",
     bool isDirectory = true,
-    std::string base64 = NULL
+    std::string base64 = ""
 ):path(path), base64(base64), hash(""), children(){
     sf2f::StealthFileModel::generateHash();
-};
+}
 
 sf2f::StealthFileModel::~StealthFileModel(){};
 

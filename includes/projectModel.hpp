@@ -14,7 +14,7 @@ namespace sf2f {
             int fileCount;
         public:
             ProjectModel();
-            ProjectModel(std::string path = NULL, std::string output = NULL, std::string hash = NULL);
+            ProjectModel(std::string path, std::string output);
             ~ProjectModel();
 
             std::string getPath();

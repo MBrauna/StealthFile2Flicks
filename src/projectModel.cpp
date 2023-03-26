@@ -2,15 +2,14 @@
 
 sf2f::ProjectModel::ProjectModel():path(NULL), outputPath(NULL), hash(NULL), root(NULL), fileCount(0){
     sf2f::ProjectModel::generateHash();
-};
+}
 
 sf2f::ProjectModel::ProjectModel(
-    std::string path = NULL,
-    std::string output = NULL,
-    std::string hash = NULL
-):path(path), outputPath(output), hash(hash), root(NULL), fileCount(0){
+    std::string path = "",
+    std::string output = ""
+):path(path), outputPath(output), hash(NULL), root(NULL), fileCount(0){
     sf2f::ProjectModel::generateHash();
-};
+}
 
 sf2f::ProjectModel::~ProjectModel(){};
 
